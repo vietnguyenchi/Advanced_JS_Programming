@@ -20,11 +20,11 @@ var voters = [
 
 const ages = voters
     .reduce((acc, voter) => {
-        if (voter.age > 20) {
+        if (voter.age >= 20 && voter.age < 30) {
             acc.age20to30 += 1;
-        } else if (voter.age > 30) {
+        } else if (voter.age >= 30 && voter.age < 40) {
             acc.age30to40 += 1;
-        } else {
+        } else if (voter.age >= 40) {
             acc.age40to50 += 1;
         }
         return acc;
