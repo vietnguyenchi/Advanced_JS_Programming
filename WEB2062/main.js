@@ -5,6 +5,12 @@ const price = document.querySelector('#price');
 const btnAdd = document.querySelector('.btn-add');
 const titleModal = document.querySelector('#titleModal');
 const btnOpenModal = document.querySelector('.openModal');
+const username = document.getElementById('username');
+const password = document.getElementById('password');
+const btnLogin = document.getElementById('login');
+const btnOpenModalLogin = document.getElementById('btnLogin');
+const btnLogout = document.getElementById('btnLogout');
+const user = JSON.parse(sessionStorage.getItem('user'));
 
 let editingProduct = null;
 
@@ -118,5 +124,29 @@ const setValueUpdate = async function (id) {
     editingProduct = id;
 }
 
+const login = async function () {
+    if (username.value.trim() === "" || password.value.trim() === "") {
+        alert("Please enter info login");
+    } else {
+        const response = await fetch(`${url}/users`);
+        const data = await response.json();
+        if (data.some(user => user.username === username.value.trim() && user.password === Number(password.value.trim()))) {
+            sessionStorage.setItem("user", JSON.stringify({ username: username.value, password: password.value }));
+            alert("Login successfully");
+            window.location.reload();
+        } else {
+            alert("User not found");
+        }
+    }
+}
+
 fetchProducts();
 btnAdd.addEventListener('click', addProduct);
+btnLogin.addEventListener('click', login);
+if (user) {
+    btnOpenModalLogin.textContent = user.username;
+}
+btnLogout.addEventListener('click', function () {
+    sessionStorage.removeItem("user");
+    window.location.reload();
+});
