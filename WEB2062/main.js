@@ -78,6 +78,7 @@ const validate = function (new_pro) {
     return true;
 }
 
+// Nếu editingProduct === null thì add sản phẩm, nếu editingProduct === id thì update sản phẩm
 const performAction = async function (data) {
     if (!editingProduct) {
         try {
@@ -143,9 +144,13 @@ const login = async function () {
 fetchProducts();
 btnAdd.addEventListener('click', addProduct);
 btnLogin.addEventListener('click', login);
+
+// Check xem đang có user đăng nhập hay không
 if (user) {
     btnOpenModalLogin.textContent = user.username;
 }
+
+// Hủy session
 btnLogout.addEventListener('click', function () {
     sessionStorage.removeItem("user");
     window.location.reload();
