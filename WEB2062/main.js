@@ -131,7 +131,7 @@ const login = async function () {
     } else {
         const response = await fetch(`${url}/users`);
         const data = await response.json();
-        if (data.some(user => user.username === username.value.trim() && user.password === Number(password.value.trim()))) {
+        if (data.some(user => user.username === username.value.trim() && user.password === password.value.trim())) {
             sessionStorage.setItem("user", JSON.stringify({ username: username.value, password: password.value }));
             alert("Login successfully");
             window.location.reload();
